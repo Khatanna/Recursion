@@ -150,4 +150,59 @@ public class Recursion {
         }
         return factorial(n * 2 - 1) + sumarFactorialesImpares(n - 1);
     }
+
+    // Ejercicios de la practica
+    public int divisores(int n, int i) {
+        if (n == i) {
+            return 1;
+        }
+        if (n % i == 0) {
+            return 1 + divisores(n, i + 1);
+        }
+        return divisores(n, i + 1);
+    }
+
+    public float primeraSerie(float n) {
+        if (n == 1) {
+            return 1 / (n * n);
+        }
+        if (n % 2 == 1) {
+            return primeraSerie(n - 1) + (1 / (n * n));
+        }
+        return primeraSerie(n - 1) - (1 / (n * n));
+    }
+
+    public float inversion(float monto, int n, float interes) {
+        if (n == 1) {
+            return monto + monto * (interes / 100);
+        }
+        return monto * (interes / 100) + inversion(monto, n - 1, interes);
+    }
+
+    public int segundaSerie(int n, int x) {
+        if (n == 1) {
+            return n * 2 + factorial(x);
+        }
+        return 1 + (n * 2 + segundaSerie(n - 1, x));
+    }
+
+    public int sumaDeDigitosPrimos(int n) {
+        if (n == 0) {
+            return n;
+        }
+        if (esPrimo(n % 10, 1, 0)) {
+            return n % 10 + sumaDeDigitosPrimos(n / 10);
+        }
+        return sumaDeDigitosPrimos(n / 10);
+    }
+
+    public float division(int a, int b) {
+        if (b == 0) {
+            return 0;
+        }
+        if (a < b) {
+            return 0;
+        }
+        return 1 + division(a - b, b);
+    }
 }

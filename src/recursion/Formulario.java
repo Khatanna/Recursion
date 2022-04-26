@@ -46,7 +46,7 @@ public class Formulario extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0: Numeros Primos", "1: Suma de numeros", "2: Suma de numeros pares", "3: Suma de numeros impares", "4: Factorial", "5: Fibonacci", "6: Multiplicacion", "7: Potencia", "8: Invertir", "9: Contar digitos", "10: Contar digitos pares", "11: Sumar digitos factoriales", "12: Sumar factoriales", "13: Sumar digitos factoriales pares", "14: Sumar digitos factoriales impares", "15: Sumar factoriales pares", "16: Sumar factoriales impares", "17: [Mostrar todo]" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0: Numeros Primos", "1: Suma de numeros", "2: Suma de numeros pares", "3: Suma de numeros impares", "4: Factorial", "5: Fibonacci", "6: Multiplicacion", "7: Potencia", "8: Invertir", "9: Contar digitos", "10: Contar digitos pares", "11: Sumar digitos factoriales", "12: Sumar factoriales", "13: Sumar digitos factoriales pares", "14: Sumar digitos factoriales impares", "15: Sumar factoriales pares", "16: Sumar factoriales impares", "17: Contar los divisores de un numero", "18: Generar primera serie", "19: Calcular el capital de una inversion", "20: Generar segunda serie", "21: Suma de digitos primos de un número", "22: Division", "23: [Mostrar todo]" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -146,23 +146,29 @@ public class Formulario extends javax.swing.JFrame {
             case 16 -> {
                 jTextArea1.setText(recursion.sumarFactorialesImpares(n) + "\n");
             }
+            case 17 -> {
+                jTextArea1.setText(recursion.divisores(n, 1) + "\n");
+            }
+            case 18 -> {
+                jTextArea1.setText(recursion.primeraSerie((float) n) + "\n");
+            }
+            case 19 -> {
+                float monto = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el monto de la inversión: "));
+                float interes = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el porcentaje del interes: "));
+                jTextArea1.setText(recursion.inversion(monto, n, interes) + "\n");
+            }
+            case 20 -> {
+                int x = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el valor de x: "));
+                jTextArea1.setText(recursion.segundaSerie(n, x) + "\n");
+            }
+            case 21 -> {
+                jTextArea1.setText(recursion.sumaDeDigitosPrimos(n) + "\n");
+            }
+            case 22 -> {
+                int b = Integer.parseInt(JOptionPane.showInputDialog("Ingrese un numeros: "));
+                jTextArea1.setText(recursion.division(n, b) + "\n");
+            }
         }
-//        System.out.println("1 suma de numeros: " + sumaDeNumeros(3));
-//        System.out.println("2 suma de numeros pares: " + sumaDeNumerosPares(6));
-//        System.out.println("3 suma de numeros impares: " + sumaDeNumerosImpares(6));
-//        System.out.println("4 factorial: " + factorial(2));
-//        System.out.println("5 fibonacci: " + fibonacci(5 - 1));
-//        System.out.println("6 multiplicacion: " + multiplicar(5, 4));
-//        System.out.println("7 potencia: " + potencia(5, 4));
-//        System.out.println("8 invertir: " + invertir(12345, 4));
-//        System.out.println("9 digitos: " + contarDigitos(12345));
-//        System.out.println("10 digitos pares: " + contarDigitosPares(1234));
-//        System.out.println("11 suma de digitos factoriales: " + sumarDigitosFactoriales(7));
-//        System.out.println("12 sumar factoriales: " + sumarFactoriales(7));
-//        System.out.println("13 sumar digitos factoriales pares: " + sumarDigitosFactorialesPares(4780));
-//        System.out.println("14 sumar digitos factoriales impares: " + sumarDigitosFactorialesImpares(1357));
-//        System.out.println("15 sumar factoriales pares: " + sumarFactorialesPares(3));
-//        System.out.println("16 sumar factoriales impares: " + sumarFactorialesImpares(3));
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**

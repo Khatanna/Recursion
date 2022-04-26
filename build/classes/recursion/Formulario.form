@@ -78,7 +78,7 @@
     <Component class="javax.swing.JComboBox" name="jComboBox1">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="18">
+          <StringArray count="24">
             <StringItem index="0" value="0: Numeros Primos"/>
             <StringItem index="1" value="1: Suma de numeros"/>
             <StringItem index="2" value="2: Suma de numeros pares"/>
@@ -96,7 +96,13 @@
             <StringItem index="14" value="14: Sumar digitos factoriales impares"/>
             <StringItem index="15" value="15: Sumar factoriales pares"/>
             <StringItem index="16" value="16: Sumar factoriales impares"/>
-            <StringItem index="17" value="17: [Mostrar todo]"/>
+            <StringItem index="17" value="17: Contar los divisores de un numero"/>
+            <StringItem index="18" value="18: Generar primera serie"/>
+            <StringItem index="19" value="19: Calcular el capital de una inversion"/>
+            <StringItem index="20" value="20: Generar segunda serie"/>
+            <StringItem index="21" value="21: Suma de digitos primos de un n&#xfa;mero"/>
+            <StringItem index="22" value="22: Division"/>
+            <StringItem index="23" value="23: [Mostrar todo]"/>
           </StringArray>
         </Property>
       </Properties>
