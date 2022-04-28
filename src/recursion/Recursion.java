@@ -1,5 +1,7 @@
 package recursion;
 
+import javax.swing.JTextArea;
+
 public class Recursion {
 
     public boolean esPrimo(int n, int i, int cont) {
@@ -161,15 +163,40 @@ public class Recursion {
         }
         return divisores(n, i + 1);
     }
+    
+    public int divisores(int n, int i, JTextArea show) {
+        if (n == i) {
+            show.append(n + " total: ");
+            return 1;
+        }
+        if (n % i == 0) {
+            show.append(i + ", ");
+            return 1 + divisores(n, i + 1, show);
+        }
+        return divisores(n, i + 1, show);
+    }
 
-    public float primeraSerie(float n) {
+    public float primeraSerie(float n, int i) {
         if (n == 1) {
             return 1 / (n * n);
         }
-        if (n % 2 == 1) {
-            return primeraSerie(n - 1) + (1 / (n * n));
+        if (n % 2 == 0) {
+            return primeraSerie(n - 1, i + 1) + (1 / (n * n));
         }
-        return primeraSerie(n - 1) - (1 / (n * n));
+        return primeraSerie(n - 1, i + 1) - (1 / (n * n));
+    }
+
+    public float primeraSerie(float n, int i, JTextArea show) {
+        if (n == 1) {
+            show.append(1 + "/" + i + "^2 = ");
+            return 1 / (n * n);
+        }
+        if (n % 2 == 0) {
+            show.append(1 + "/" + i + "^2 + ");
+            return primeraSerie(n - 1, i + 1, show) - (1 / (n * n));
+        }
+        show.append(1 + "/" + i + "^2 - ");
+        return primeraSerie(n - 1, i + 1, show) + (1 / (n * n));
     }
 
     public float inversion(float monto, int n, float interes) {
@@ -181,9 +208,18 @@ public class Recursion {
 
     public int segundaSerie(int n, int x) {
         if (n == 1) {
-            return n * 2 + factorial(x);
+            return factorial(n * 2 + x);
         }
-        return 1 + (n * 2 + segundaSerie(n - 1, x));
+        return factorial(n * 2 + x) + segundaSerie(n - 1, x);
+    }
+
+    public int segundaSerie(int n, int x, int i, JTextArea show) {
+        if (n == 1) {
+            show.append("(" + i + " + " + x + ")! = ");
+            return factorial(n * 2 + x);
+        }
+        show.append("(" + i + " + " + x + ")! + ");
+        return factorial(n * 2 + x) + segundaSerie(n - 1, x, i + 2, show);
     }
 
     public int sumaDeDigitosPrimos(int n) {
@@ -204,5 +240,9 @@ public class Recursion {
             return 0;
         }
         return 1 + division(a - b, b);
+    }
+
+    public static void main(String[] args) {
+        Recursion r = new Recursion();
     }
 }

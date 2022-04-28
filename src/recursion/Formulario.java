@@ -147,10 +147,11 @@ public class Formulario extends javax.swing.JFrame {
                 jTextArea1.setText(recursion.sumarFactorialesImpares(n) + "\n");
             }
             case 17 -> {
-                jTextArea1.setText(recursion.divisores(n, 1) + "\n");
+                jTextArea1.append(recursion.divisores(n, 1, jTextArea1) + "\n");
             }
             case 18 -> {
-                jTextArea1.setText(recursion.primeraSerie((float) n) + "\n");
+                jTextArea1.setText("");
+                jTextArea1.append(recursion.primeraSerie((float) n, 1, jTextArea1) + "");
             }
             case 19 -> {
                 float monto = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el monto de la inversión: "));
@@ -159,7 +160,7 @@ public class Formulario extends javax.swing.JFrame {
             }
             case 20 -> {
                 int x = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el valor de x: "));
-                jTextArea1.setText(recursion.segundaSerie(n, x) + "\n");
+                jTextArea1.append(recursion.segundaSerie(n, x, 2, jTextArea1) + "\n");
             }
             case 21 -> {
                 jTextArea1.setText(recursion.sumaDeDigitosPrimos(n) + "\n");
