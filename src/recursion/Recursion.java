@@ -64,6 +64,16 @@ public class Recursion {
         return fibonacci(n - 1) + fibonacci(n - 2);
     }
 
+    public int fibonacciForDummies(int n) {
+        if (n == 0) {
+            return 1;
+        }
+        if (n == 1) {
+            return 0;
+        }
+        return fibonacciForDummies(n - 1) + fibonacciForDummies(n - 2);
+    }
+
     public int multiplicar(int a, int b) {
         if (b == 1) {
             return a;
@@ -163,7 +173,7 @@ public class Recursion {
         }
         return divisores(n, i + 1);
     }
-    
+
     public int divisores(int n, int i, JTextArea show) {
         if (n == i) {
             show.append(n + " total: ");
@@ -242,7 +252,120 @@ public class Recursion {
         return 1 + division(a - b, b);
     }
 
+    public void sumaDeArrays(int[] a, int[] b, int[] c, int index) {
+        if (index == a.length - 1) {
+            c[index] = a[index] + b[index];
+        } else {
+            c[index] = a[index] + b[index];
+            sumaDeArrays(a, b, c, index + 1);
+        }
+    }
+
+    public void generarArray(int[] a, int index) {
+        int random = (int) (Math.random() * 10 + 1);
+        if (index == a.length - 1) {
+            a[index] = random;
+        } else {
+            a[index] = random;
+            generarArray(a, index + 1);
+        }
+    }
+
+    public void generarArraySucesivo(int[] a, int index) {
+        if (index == a.length - 1) {
+            a[index] = index + 1;
+        } else {
+            a[index] = index + 1;
+            generarArraySucesivo(a, index + 1);
+        }
+    }
+
+    public void mostrarArray(int[] a, int index) {
+        if (index == a.length - 1) {
+            System.out.println(a[index]);
+        } else {
+            System.out.print(a[index] + ", ");
+            mostrarArray(a, index + 1);
+        }
+    }
+
+    //refactor!!
+    public void sumaDeMatrices(int[][] a, int[][] b, int[][] c, int filas) {
+        if (filas == a.length - 1) {
+            sumaDeArrays(a[filas], b[filas], c[filas], 0);
+        } else {
+            sumaDeArrays(a[filas], b[filas], c[filas], 0);
+            sumaDeMatrices(a, b, c, filas + 1);
+        }
+    }
+
+    public void generarMatriz(int[][] a, int filas) {
+        if (filas == a.length - 1) {
+            generarArray(a[filas], 0);
+        } else {
+            generarArray(a[filas], 0);
+            generarMatriz(a, filas + 1);
+        }
+    }
+    
+    public void generarMatrizSucesiva(int[][] a, int filas) {
+        if (filas == a.length - 1) {
+            generarArraySucesivo(a[filas], 0);
+        } else {
+            generarArraySucesivo(a[filas], 0);
+            generarMatrizSucesiva(a, filas + 1);
+        }
+    }
+
+    public void mostrarMatriz(int[][] a, int filas){
+        if (filas == a.length - 1) {
+            mostrarArray(a[filas], 0);
+        } else {
+            mostrarArray(a[filas], 0);
+            mostrarMatriz(a, filas + 1);
+        }
+    }
+    
+    public void sumaSniky(int[][] a, int[][] b, int[][] c, int n, int fil, int col) {
+        if (fil == 0 && col == 0) {
+            c[0][0] = a[0][0] + b[0][0];
+        } else {
+            if (col >= 0) {
+                c[fil][col] = a[fil][col] + b[fil][col];
+                sumaSniky(a, b, c, n, fil, col - 1);
+            } else {
+                col = n;
+                sumaSniky(a, b, c, n, fil - 1, col);
+            }
+        }
+    }
+
+    public void matrizTriangularSuperior(int[][] a, int count){
+        
+    }
+    
     public static void main(String[] args) {
         Recursion r = new Recursion();
+        int[] a = {1, 2, 3};
+        int[] b = {1, 2, 3};
+        int[] c = new int[a.length];
+
+        r.sumaDeArrays(a, b, c, 0);
+        int filas = 2, columnas = 6;
+
+        int[][] matrizA = new int[filas][columnas];
+        int[][] matrizB = new int[filas][columnas];
+        int[][] matrizC = new int[matrizA.length][matrizA[0].length];
+
+        r.generarMatrizSucesiva(matrizA, 0);
+        r.generarMatrizSucesiva(matrizB, 0);
+        r.sumaDeMatrices(matrizA, matrizB, matrizC, 0);
+        
+        r.mostrarMatriz(matrizA, 0);
+        System.out.println("");
+        r.mostrarMatriz(matrizB, 0);
+        System.out.println("");
+        r.mostrarMatriz(matrizC, 0);
     }
+
 }
