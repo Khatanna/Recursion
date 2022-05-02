@@ -15,6 +15,9 @@ public class Recursion {
     }
 
     public int generarPrimos(int n, int i, int array[], int index) {
+        if (n == 0) {
+            return 0;
+        }
         if (n == 1) {
             if (esPrimo(i, 1, 0)) {
                 array[index] = i;
@@ -280,6 +283,24 @@ public class Recursion {
         }
     }
 
+    public void generarSerieConArray(int[] a, int index, int j, int x, int b) {
+        if (index < a.length) {
+            if (j < x) {
+                j++;
+            } else {
+                j = 1;
+                x++;
+            }
+            a[index] = b;
+            if (j < x) {
+                b = 0;
+            } else {
+                b = x;
+            }
+            generarSerieConArray(a, index + 1, j, x, b);
+        }
+    }
+
     public void mostrarArray(int[] a, int index) {
         if (index == a.length - 1) {
             System.out.println(a[index]);
@@ -288,8 +309,17 @@ public class Recursion {
             mostrarArray(a, index + 1);
         }
     }
+    
+    public void mostrarArray(int[] a, int index, JTextArea show) {
+        if (index == a.length - 1) {
+            show.append(a[index] + "");
+        } else {
+            show.append(a[index] + ", ");
+            mostrarArray(a, index + 1, show);
+        }
+    }
 
-    //refactor!!
+    // refactor!!
     public void sumaDeMatrices(int[][] a, int[][] b, int[][] c, int filas) {
         if (filas == a.length - 1) {
             sumaDeArrays(a[filas], b[filas], c[filas], 0);
@@ -307,25 +337,51 @@ public class Recursion {
             generarMatriz(a, filas + 1);
         }
     }
-    
-    public void generarMatrizSucesiva(int[][] a, int filas) {
-        if (filas == a.length - 1) {
-            generarArraySucesivo(a[filas], 0);
-        } else {
-            generarArraySucesivo(a[filas], 0);
-            generarMatrizSucesiva(a, filas + 1);
+
+    public void generarMatrizSucesiva(int[][] a, int filas, int columnas, int count) {
+        if (filas < a.length) {
+            if (columnas < a[0].length) {
+                a[filas][columnas] = count;
+                generarMatrizSucesiva(a, filas, columnas + 1, count + 1);
+            } else {
+                generarMatrizSucesiva(a, filas + 1, 0, count);
+            }
         }
     }
 
-    public void mostrarMatriz(int[][] a, int filas){
-        if (filas == a.length - 1) {
-            mostrarArray(a[filas], 0);
-        } else {
-            mostrarArray(a[filas], 0);
-            mostrarMatriz(a, filas + 1);
+    public void mostrarMatriz(int[][] a, int filas, int columnas) {
+        if (filas < a.length) {
+            if (columnas < a[0].length) {
+                if(a[filas][columnas] < 10){
+                    System.out.print("[" + a[filas][columnas] + " ]");
+                }else{
+                    System.out.print("[" + a[filas][columnas] + "]");
+                }
+                mostrarMatriz(a, filas, columnas + 1);
+            } else {
+                System.out.println("");
+                mostrarMatriz(a, filas + 1, 0);
+            }
         }
     }
     
+    public void mostrarMatriz(int[][] a, int filas, int columnas, JTextArea show) {
+        if (filas < a.length) {
+            if (columnas < a[0].length) {
+                if(a[filas][columnas] < 10){
+                    show.append("[" + a[filas][columnas] + " ]");
+                }else{
+                    show.append("[" + a[filas][columnas] + "]");
+                }
+                mostrarMatriz(a, filas, columnas + 1, show);
+            } else {
+                show.append("\n");
+                mostrarMatriz(a, filas + 1, 0, show);
+            }
+        }
+    }
+
+    /*
     public void sumaSniky(int[][] a, int[][] b, int[][] c, int n, int fil, int col) {
         if (fil == 0 && col == 0) {
             c[0][0] = a[0][0] + b[0][0];
@@ -339,33 +395,87 @@ public class Recursion {
             }
         }
     }
-
-    public void matrizTriangularSuperior(int[][] a, int count){
-        
+     */
+    public void matrizTriangularSuperior(int[][] a, int filas, int columnas, int count) {
+        if (filas < a.length) {
+            if (columnas < a[0].length) {
+                if (filas + columnas < a.length) {
+                    a[filas][columnas] = count;
+                    matrizTriangularSuperior(a, filas, columnas + 1, count + 1);
+                } else {
+                    matrizTriangularSuperior(a, filas, columnas + 1, count);
+                }
+            } else {
+                matrizTriangularSuperior(a, filas + 1, 0, count);
+            }
+        }
     }
-    
+
+    public void matrizTriangularInferior(int[][] a, int filas, int columnas, int count) {
+        if (filas < a.length) {
+            if (columnas < a[0].length) {
+                if (filas + columnas >= a.length - 1) {
+                    a[filas][columnas] = count;
+                    matrizTriangularInferior(a, filas, columnas + 1, count + 1);
+                } else {
+                    matrizTriangularInferior(a, filas, columnas + 1, count);
+                }
+            } else {
+                matrizTriangularInferior(a, filas + 1, 0, count);
+            }
+        }
+    }
+
+    public void generarMatrizFilasIntercaladas(int[][] a, int filas, int columnas, int count) {
+        if (columnas < a[0].length) {
+            if (filas < a.length) {
+                a[filas][columnas] = count;
+                generarMatrizFilasIntercaladas(a, filas + 1, columnas, count + 1);
+            } else {
+                generarMatrizFilasIntercaladas(a, 0, columnas + 1, count);
+            }
+        }
+    }
+
+    public void generarMatrizGusanitoVertical(int[][] a, int filas, int columnas, int count) {
+        if (columnas < a[0].length) {
+            if (filas < a.length) {
+                if (columnas % 2 == 0) {
+                    a[filas][columnas] = count;
+                    generarMatrizGusanitoVertical(a, filas + 1, columnas, count + 1);
+                } else {
+                    a[Math.abs(filas - a.length) - 1][columnas] = count;
+                    generarMatrizGusanitoVertical(a, filas + 1, columnas, count + 1);
+                }
+            } else {
+                generarMatrizGusanitoVertical(a, 0, columnas + 1, count);
+            }
+        }
+    }
+
+    public void matrizL(int[][] a, int filas, int columnas, int count) {
+        if (filas < a.length) {
+            if (columnas < a[0].length) {
+                if (filas == 0 || columnas == a[0].length - 1) {
+                    a[filas][Math.abs(columnas - a[0].length) - 1] = count;
+                    matrizL(a, filas, columnas + 1, count + 1);
+                } else {
+                    matrizL(a, filas, columnas + 1, count);
+                }
+            } else {
+                matrizL(a, filas + 1, 0, count);
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Recursion r = new Recursion();
-        int[] a = {1, 2, 3};
-        int[] b = {1, 2, 3};
-        int[] c = new int[a.length];
-
-        r.sumaDeArrays(a, b, c, 0);
-        int filas = 2, columnas = 6;
+        int filas = 3, columnas = 3;
 
         int[][] matrizA = new int[filas][columnas];
-        int[][] matrizB = new int[filas][columnas];
-        int[][] matrizC = new int[matrizA.length][matrizA[0].length];
-
-        r.generarMatrizSucesiva(matrizA, 0);
-        r.generarMatrizSucesiva(matrizB, 0);
-        r.sumaDeMatrices(matrizA, matrizB, matrizC, 0);
-        
-        r.mostrarMatriz(matrizA, 0);
-        System.out.println("");
-        r.mostrarMatriz(matrizB, 0);
-        System.out.println("");
-        r.mostrarMatriz(matrizC, 0);
+        //int[] array = new int[10];
+        //r.generarSerieConArray(array, 0, 1, 1, 1);
+        //r.mostrarArray(array, 0);
     }
 
 }

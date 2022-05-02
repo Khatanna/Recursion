@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 public class Formulario extends javax.swing.JFrame {
 
     Recursion recursion = new Recursion();
+    int[][] matriz;
 
     public Formulario() {
         initComponents();
@@ -36,6 +37,7 @@ public class Formulario extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
@@ -46,7 +48,7 @@ public class Formulario extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0: Numeros Primos", "1: Suma de numeros", "2: Suma de numeros pares", "3: Suma de numeros impares", "4: Factorial", "5: Fibonacci", "6: Multiplicacion", "7: Potencia", "8: Invertir", "9: Contar digitos", "10: Contar digitos pares", "11: Sumar digitos factoriales", "12: Sumar factoriales", "13: Sumar digitos factoriales pares", "14: Sumar digitos factoriales impares", "15: Sumar factoriales pares", "16: Sumar factoriales impares", "17: Contar los divisores de un numero", "18: Generar primera serie", "19: Calcular el capital de una inversion", "20: Generar segunda serie", "21: Suma de digitos primos de un número", "22: Division", "23: [Mostrar todo]" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0: Numeros Primos", "1: Suma de numeros", "2: Suma de numeros pares", "3: Suma de numeros impares", "4: Factorial", "5: Fibonacci", "6: Multiplicacion", "7: Potencia", "8: Invertir", "9: Contar digitos", "10: Contar digitos pares", "11: Sumar digitos factoriales", "12: Sumar factoriales", "13: Sumar digitos factoriales pares", "14: Sumar digitos factoriales impares", "15: Sumar factoriales pares", "16: Sumar factoriales impares", "17: Contar los divisores de un numero", "18: Generar primera serie", "19: Calcular el capital de una inversion", "20: Generar segunda serie", "21: Suma de digitos primos de un número", "22: Division", "23: Generar serie con array", "24: Generar matriz desde las columnas", "25: Generar matriz triangular inferior", "26: Generar matriz gusanito desde las columnas", "27: Generar matriz L invertida" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -57,14 +59,14 @@ public class Formulario extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 366, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
@@ -72,8 +74,8 @@ public class Formulario extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addGap(20, 20, 20))
@@ -87,8 +89,16 @@ public class Formulario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        int n = Integer.parseInt(JOptionPane.showInputDialog("Ingrese un numeros: "));
-        int[] array = new int[n];
+        int n = 0;
+        int[] array = new int[0];
+        if (jComboBox1.getSelectedIndex() < 24) {
+            try {
+                n = Integer.parseInt(JOptionPane.showInputDialog("Ingrese un numeros: "));
+                array = new int[n];
+            } catch (NumberFormatException error) {
+                System.out.println("Error:" + error);
+            }
+        }
         switch (jComboBox1.getSelectedIndex()) {
             case 0 -> {
                 recursion.generarPrimos(array.length, 1, array, 0);
@@ -169,8 +179,42 @@ public class Formulario extends javax.swing.JFrame {
                 int b = Integer.parseInt(JOptionPane.showInputDialog("Ingrese un numeros: "));
                 jTextArea1.setText(recursion.division(n, b) + "\n");
             }
+            case 23 -> {
+                recursion.generarSerieConArray(array, 0, 1, 1, 1);
+                recursion.mostrarArray(array, 0, jTextArea1);
+            }
+            case 24 -> {
+                pedirDatos();
+                jTextArea1.setText("");
+                recursion.generarMatrizFilasIntercaladas(matriz, 0, 0, 1);
+                recursion.mostrarMatriz(matriz, 0, 0, jTextArea1);
+            }
+            case 25 -> {
+                pedirDatos();
+                jTextArea1.setText("");
+                recursion.matrizTriangularInferior(matriz, 0, 0, 1);
+                recursion.mostrarMatriz(matriz, 0, 0, jTextArea1);
+            }
+            case 26 -> {
+                pedirDatos();
+                jTextArea1.setText("");
+                recursion.generarMatrizGusanitoVertical(matriz, 0, 0, 1);
+                recursion.mostrarMatriz(matriz, 0, 0, jTextArea1);
+            }
+            case 27 -> {
+                pedirDatos();
+                jTextArea1.setText("");
+                recursion.matrizL(matriz, 0, 0, 1);
+                recursion.mostrarMatriz(matriz, 0, 0, jTextArea1);
+            }
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    public void pedirDatos() {
+        int filas = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de filas: "));
+        int columnas = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de columnas: "));
+        matriz = new int[filas][columnas];
+    }
 
     /**
      * @param args the command line arguments
