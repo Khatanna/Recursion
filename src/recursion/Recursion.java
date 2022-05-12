@@ -309,7 +309,7 @@ public class Recursion {
             mostrarArray(a, index + 1);
         }
     }
-    
+
     public void mostrarArray(int[] a, int index, JTextArea show) {
         if (index == a.length - 1) {
             show.append(a[index] + "");
@@ -352,9 +352,9 @@ public class Recursion {
     public void mostrarMatriz(int[][] a, int filas, int columnas) {
         if (filas < a.length) {
             if (columnas < a[0].length) {
-                if(a[filas][columnas] < 10){
+                if (a[filas][columnas] < 10) {
                     System.out.print("[" + a[filas][columnas] + " ]");
-                }else{
+                } else {
                     System.out.print("[" + a[filas][columnas] + "]");
                 }
                 mostrarMatriz(a, filas, columnas + 1);
@@ -364,13 +364,13 @@ public class Recursion {
             }
         }
     }
-    
+
     public void mostrarMatriz(int[][] a, int filas, int columnas, JTextArea show) {
         if (filas < a.length) {
             if (columnas < a[0].length) {
-                if(a[filas][columnas] < 10){
+                if (a[filas][columnas] < 10) {
                     show.append("[" + a[filas][columnas] + " ]");
-                }else{
+                } else {
                     show.append("[" + a[filas][columnas] + "]");
                 }
                 mostrarMatriz(a, filas, columnas + 1, show);
@@ -468,14 +468,113 @@ public class Recursion {
         }
     }
 
-    public static void main(String[] args) {
-        Recursion r = new Recursion();
-        int filas = 3, columnas = 3;
-
-        int[][] matrizA = new int[filas][columnas];
-        //int[] array = new int[10];
-        //r.generarSerieConArray(array, 0, 1, 1, 1);
-        //r.mostrarArray(array, 0);
+    public void matrizCaracol(int[][] matriz, int filas, int columnas, int a, int b, int count) {
+        if (filas < matriz.length) {
+            if (filas < b + 1) {
+                if (columnas < b + 1) {
+                    if (filas == a || columnas == b) {
+                        matriz[filas][columnas] = count;
+                        matrizCaracol(matriz, filas, columnas + 1, a, b, count + 1);
+                    } else {
+                        matrizCaracol(matriz, filas, columnas + 1, a, b, count);
+                    }
+                } else {
+                    matrizCaracol(matriz, filas + 1, 0, a, b, count);
+                }
+            } else {
+                matrizCaracol(matriz, matriz.length - 1, matriz[0].length - 1, a, b, count);
+            }
+            /*
+            if (filas >= a + 1) {
+                if (columnas >= a) {
+                    if (columnas == a || filas == b) {
+                        matriz[filas][columnas] = count;
+                        matrizCaracol(matriz, filas, columnas + 1, a, b, count + 1);
+                    } else {
+                        matrizCaracol(matriz, filas, columnas - 1, a, b, count);
+                    }
+                } else {
+                    matrizCaracol(matriz, filas - 1, matriz[0].length - 1, a, b, count);
+                }
+            }
+             */
+        }
     }
 
+    public String convetirDeBinarioADecimal(int n) {
+        if (n <= 1) {
+            return n + "";
+        }
+        return convetirDeBinarioADecimal(n / 2) + (n % 2);
+    }
+
+    public int serie(int n, int x) {
+        if (n == 1) {
+            return (int) Math.pow(x, factorial(n));
+        }
+        return (int) Math.pow(x, factorial(n)) + serie(n - 1, x);
+    }
+
+    public int enesimoTerminoDeUnaSerie(int n) {
+        if (n <= 1) {
+            return n;
+        }
+        return n + enesimoTerminoDeUnaSerie(n - 1);
+    }
+
+    public int sumaDeElementos(int Array[], int index) {
+        if (index == Array.length - 1) {
+            return Array[index];
+        }
+        return Array[index] + sumaDeElementos(Array, index + 1);
+    }
+
+    public int eliminarDigitosIgualesACero(int n) {
+        if (n <= 10) {
+            return n;
+        }
+        if((n%10) == 0){
+            return eliminarDigitosIgualesACero(n / 10);
+        }
+        return 10 * eliminarDigitosIgualesACero(n / 10) + n %10;
+    }
+
+    public static void main(String[] args) {
+        Recursion r = new Recursion();
+        int filas = 5, columnas = 5;
+
+        int[][] matrizA = new int[filas][columnas];
+
+        //r.generarMatrizGusanitoVertical(matrizA, 0, 0, 1);
+        int[] array = {1, 2, 3, 4, 5};
+        //r.generarSerieConArray(array, 0, 1, 1, 1);
+        //r.mostrarArray(array, 0);
+        int c = 1;
+        int a = 0, b = columnas - 1;
+        //r.matrizCaracol(matrizA, 0, 0, 0, filas - 1, 1);
+        /*
+        for (int k = 0; k < filas; k++) {
+            for (int i = a; i < b + 1; i++) {
+                for (int j = a; j < b + 1; j++) {
+                    if (i == a || j == b) {
+                        matrizA[i][j] = c++;
+                    }
+                }
+            }
+            for (int i = b; i >= a + 1; i--) {
+                for (int j = b - 1; j >= a; j--) {
+                    if (j == a || i == b) {
+                        matrizA[i][j] = c++;
+                    }
+                }
+            }
+            a++;
+            b--;
+        }
+         */
+        //r.mostrarMatriz(matrizA, 0, 0);
+        int suma = r.eliminarDigitosIgualesACero(1203450);
+
+        System.out.println(suma);
+    }
 }
