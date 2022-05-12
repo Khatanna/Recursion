@@ -309,7 +309,7 @@ public class Recursion {
             mostrarArray(a, index + 1);
         }
     }
-    
+
     public void mostrarArray(int[] a, int index, JTextArea show) {
         if (index == a.length - 1) {
             show.append(a[index] + "");
@@ -352,9 +352,9 @@ public class Recursion {
     public void mostrarMatriz(int[][] a, int filas, int columnas) {
         if (filas < a.length) {
             if (columnas < a[0].length) {
-                if(a[filas][columnas] < 10){
+                if (a[filas][columnas] < 10) {
                     System.out.print("[" + a[filas][columnas] + " ]");
-                }else{
+                } else {
                     System.out.print("[" + a[filas][columnas] + "]");
                 }
                 mostrarMatriz(a, filas, columnas + 1);
@@ -364,13 +364,13 @@ public class Recursion {
             }
         }
     }
-    
+
     public void mostrarMatriz(int[][] a, int filas, int columnas, JTextArea show) {
         if (filas < a.length) {
             if (columnas < a[0].length) {
-                if(a[filas][columnas] < 10){
+                if (a[filas][columnas] < 10) {
                     show.append("[" + a[filas][columnas] + " ]");
-                }else{
+                } else {
                     show.append("[" + a[filas][columnas] + "]");
                 }
                 mostrarMatriz(a, filas, columnas + 1, show);
