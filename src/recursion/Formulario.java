@@ -130,7 +130,7 @@ public class Formulario extends javax.swing.JFrame {
                 jTextArea1.setText(recursion.potencia(n, b) + "");
             }
             case 8 -> {
-                jTextArea1.setText(recursion.invertir(n, (n + "").length() - 1) + "");
+                jTextArea1.setText(recursion.invertir(n) + "");
             }
             case 9 -> {
                 jTextArea1.setText(recursion.contarDigitos(n) + "");

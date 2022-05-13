@@ -5,6 +5,9 @@ import javax.swing.JTextArea;
 public class Recursion {
 
     public boolean esPrimo(int n, int i, int cont) {
+        if (n <= 1) {
+            return false;
+        }
         if (n % i == 0) {
             cont++;
         }
@@ -85,17 +88,20 @@ public class Recursion {
     }
 
     public int potencia(int a, int b) {
+        if (b == 0) {
+            return 1;
+        }
         if (b == 1) {
             return a;
         }
         return a * potencia(a, b - 1);
     }
 
-    public int invertir(int n, int length) {
-        if (n < 10) {
+    public int invertir(int n) {
+        if (n == 0) {
             return n;
         }
-        return n % 10 * potencia(10, length) + invertir(n / 10, length - 1);
+        return n % 10 * potencia(10, (n + "").length() - 1) + invertir(n / 10);
     }
 
     public int contarDigitos(int n) {
@@ -166,7 +172,6 @@ public class Recursion {
         return factorial(n * 2 - 1) + sumarFactorialesImpares(n - 1);
     }
 
-    // Ejercicios de la practica
     public int divisores(int n, int i) {
         if (n == i) {
             return 1;
@@ -319,7 +324,6 @@ public class Recursion {
         }
     }
 
-    // refactor!!
     public void sumaDeMatrices(int[][] a, int[][] b, int[][] c, int filas) {
         if (filas == a.length - 1) {
             sumaDeArrays(a[filas], b[filas], c[filas], 0);
@@ -381,21 +385,6 @@ public class Recursion {
         }
     }
 
-    /*
-    public void sumaSniky(int[][] a, int[][] b, int[][] c, int n, int fil, int col) {
-        if (fil == 0 && col == 0) {
-            c[0][0] = a[0][0] + b[0][0];
-        } else {
-            if (col >= 0) {
-                c[fil][col] = a[fil][col] + b[fil][col];
-                sumaSniky(a, b, c, n, fil, col - 1);
-            } else {
-                col = n;
-                sumaSniky(a, b, c, n, fil - 1, col);
-            }
-        }
-    }
-     */
     public void matrizTriangularSuperior(int[][] a, int filas, int columnas, int count) {
         if (filas < a.length) {
             if (columnas < a[0].length) {
@@ -484,20 +473,6 @@ public class Recursion {
             } else {
                 matrizCaracol(matriz, matriz.length - 1, matriz[0].length - 1, a, b, count);
             }
-            /*
-            if (filas >= a + 1) {
-                if (columnas >= a) {
-                    if (columnas == a || filas == b) {
-                        matriz[filas][columnas] = count;
-                        matrizCaracol(matriz, filas, columnas + 1, a, b, count + 1);
-                    } else {
-                        matrizCaracol(matriz, filas, columnas - 1, a, b, count);
-                    }
-                } else {
-                    matrizCaracol(matriz, filas - 1, matriz[0].length - 1, a, b, count);
-                }
-            }
-             */
         }
     }
 
@@ -530,13 +505,61 @@ public class Recursion {
     }
 
     public int eliminarDigitosIgualesACero(int n) {
-        if (n <= 10) {
+        if (n < 10) {
             return n;
         }
-        if((n%10) == 0){
+        if ((n % 10) == 0) {
             return eliminarDigitosIgualesACero(n / 10);
         }
-        return 10 * eliminarDigitosIgualesACero(n / 10) + n %10;
+        return 10 * eliminarDigitosIgualesACero(n / 10) + n % 10;
+    }
+
+    // jiji
+    public int sumarDigitosFactorialNoPrimos(int n) {
+        if (n < 10) {
+            if (!esPrimo(n, 1, 0)) {
+                return factorial(n);
+            }
+        }
+        if (!esPrimo(n % 10, 1, 0)) {
+            return factorial(n % 10) + sumarDigitosFactorialNoPrimos(n / 10);
+        }
+        return sumarDigitosFactorialNoPrimos(n / 10);
+    }
+
+    public int intercalarNumeros(int a, int b, int i) {
+        if (i % 2 == 0) {
+            if (a > 0) {
+                return 10 * intercalarNumeros(a / 10, b, i + 1) + a % 10;
+            }
+        } else {
+            if (b > 0) {
+                return 10 * intercalarNumeros(a, b / 10, i + 1) + b % 10;
+            }
+        }
+        return 0;
+    }
+
+    public void generarSerie(int a[], int index, int i, int j) {
+        if (index < a.length - 1) {
+            int primo = getPrimo(i);
+            a[index] = primo;
+            if (j <= primo) {
+                if (j != 1) {
+                    a[index] = 0;
+                }
+                generarSerie(a, index + 1, i, j + 1);
+            } else {
+                a[index] = 0;
+                generarSerie(a, index + 1, i + 1, 1);
+            }
+        }
+    }
+
+    public int getPrimo(int n) {
+        int array[] = new int[n];
+        generarPrimos(n, 1, array, 0);
+        return array[array.length - 1];
     }
 
     public static void main(String[] args) {
@@ -544,37 +567,41 @@ public class Recursion {
         int filas = 5, columnas = 5;
 
         int[][] matrizA = new int[filas][columnas];
+        int[] array = new int[10];
 
-        //r.generarMatrizGusanitoVertical(matrizA, 0, 0, 1);
-        int[] array = {1, 2, 3, 4, 5};
-        //r.generarSerieConArray(array, 0, 1, 1, 1);
-        //r.mostrarArray(array, 0);
-        int c = 1;
-        int a = 0, b = columnas - 1;
-        //r.matrizCaracol(matrizA, 0, 0, 0, filas - 1, 1);
+        r.generarSerie(array, 0, 1, 1);
+        // r.test(array, 0, 10);
+        r.mostrarArray(array, 0);
+
+        // r.generarMatrizGusanitoVertical(matrizA, 0, 0, 1);
+        // int[] array = {1, 2, 3, 4, 5};
+        // r.generarSerieConArray(array, 0, 1, 1, 1);
+        // r.mostrarArray(array, 0);
+        // int c = 1;
+        // int a = 0, b = columnas - 1;
+        // r.matrizCaracol(matrizA, 0, 0, 0, filas - 1, 1);
         /*
-        for (int k = 0; k < filas; k++) {
-            for (int i = a; i < b + 1; i++) {
-                for (int j = a; j < b + 1; j++) {
-                    if (i == a || j == b) {
-                        matrizA[i][j] = c++;
-                    }
-                }
-            }
-            for (int i = b; i >= a + 1; i--) {
-                for (int j = b - 1; j >= a; j--) {
-                    if (j == a || i == b) {
-                        matrizA[i][j] = c++;
-                    }
-                }
-            }
-            a++;
-            b--;
-        }
+         * for (int k = 0; k < filas; k++) {
+         * for (int i = a; i < b + 1; i++) {
+         * for (int j = a; j < b + 1; j++) {
+         * if (i == a || j == b) {
+         * matrizA[i][j] = c++;
+         * }
+         * }
+         * }
+         * for (int i = b; i >= a + 1; i--) {
+         * for (int j = b - 1; j >= a; j--) {
+         * if (j == a || i == b) {
+         * matrizA[i][j] = c++;
+         * }
+         * }
+         * }
+         * a++;
+         * b--;
+         * }
          */
-        //r.mostrarMatriz(matrizA, 0, 0);
-        int suma = r.eliminarDigitosIgualesACero(1203450);
-
-        System.out.println(suma);
+        // r.mostrarMatriz(matrizA, 0, 0);
+        // int suma = r.eliminarDigitosIgualesACero(1203450);
+        // System.out.println(suma);
     }
 }
